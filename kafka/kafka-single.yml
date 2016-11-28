@@ -2,10 +2,17 @@ version: '2'
 services:
   zookeeper:
     image: zookeeper
-  kbroker0:
+    ports:
+      - 2181:2181
+      - 2888:2888
+      - 3888:3888
+  kbroker:
     image: rbi13/kafka
+    ports:
+      - 9092:9092
     links:
-       - zookeeper
+      - zookeeper
     command: >
       /bin/bash bin/kafka-server-start.sh config/server.properties
       --override zookeeper.connect=zookeeper:2181
+      --override listeners=PLAINTEXT://localhost:9092
