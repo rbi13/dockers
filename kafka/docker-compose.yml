@@ -2,10 +2,13 @@ version: '2'
 services:
   zookeeper:
     image: zookeeper
-  kbroker0:
+  kbroker:
     image: rbi13/kafka
+    expose:
+      - 9092
     links:
-       - zookeeper
+      - zookeeper
     command: >
       /bin/bash bin/kafka-server-start.sh config/server.properties
       --override zookeeper.connect=zookeeper:2181
+      --override broker.id=-1
