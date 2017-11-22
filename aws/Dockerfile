@@ -1,5 +1,11 @@
-FROM python:2.7
-
-RUN \
-  apt-get update && apt-get install -y groff &&\
-  pip install awscli
+FROM alpine:edge
+RUN apk update && apk add \
+      bash \
+      curl \
+      less \
+      groff \
+      jq \
+      python \
+      py-pip \
+      py2-pip && \
+      pip install --upgrade pip awscli s3cmd
